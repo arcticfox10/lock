@@ -2,13 +2,15 @@ def welcome_speesh(t):
     print(f'''добро пожаловать в игру виселица
             ваша задача угадать загадонное слово за несколько попыток
             иначе вас ждёт расплата!
-            загаданное слово состоит из {len(word)} {t}''')
+            загаданное слово состоит из {len(t)} {t}''')
 def start_template(w):
-     
     return len(w)*['_']
+
+
 def list_to_string_convert(t):
     s=''
     return s.join(t)
+
 def get_word(w):
     """
     input: w - list with strings( words)
@@ -25,7 +27,7 @@ def build_template(t,w,g=''):
     for i in range(len(w)):
         if w[i]==g:
             t[i]=g
-     return t
+    return t
 def check_win(g):
     for i in g:
         if i=='_':
@@ -45,23 +47,25 @@ def check_mistake(w,g):
 
 def game():
     progress=True
-    word=('апельсин')
+    word=['апельсин']
     lifes=12
 
     word_in_play=get_word(word)
-    temrlate=start_template(word_in_play)
-    welkome_speech(list_to_string_convert(template))
+    template=start_template(word_in_play)
+    welcome_speesh(list_to_string_convert(template))
     while progress:
-        user__quess=user_input
-        template=__build_template(temrlate,word_in_play,user__quess) 
+        user_guess=user_input()
+        template=build_template(template,word_in_play,user_guess) 
         quessed=list_to_string_convert(template)
         print(f'результат:{quessed}')
         progress=check_win(quessed)
-         if not check_mistake(word_in_play,user__quess)
-         print(f'осталось{lifes} попыток')
-         lifes-=1
-         if lifes==o:
+        if not check_mistake(word_in_play,user_guess):
+            print(f'осталось {lifes} попыток')
+            lifes-=1
+        if lifes==0:
             print('вы проиграли')
             break
         if not progress:
             print('вы победили')
+
+game()
